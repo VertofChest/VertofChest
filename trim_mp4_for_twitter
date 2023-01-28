@@ -1,0 +1,17 @@
+import subprocess
+
+# This is a Python script that will trim your .mp4 video file to be under 140 seconds for uploading onto platforms like Twitter.
+# This script REQUIRES Python and FFMPEG installed on your PC to run.
+# On Windows, just download free ffmpeg.exe from any reliable and trusted source.
+
+# Input file
+input_file = "video.mp4"
+
+# Trimmed output file
+output_file = "trimmed_video.mp4"
+
+# Maximum duration of 140 seconds
+max_duration = 139
+
+# Run ffmpeg command to trim the video
+subprocess.run(["ffmpeg", "-i", input_file, "-t", str(max_duration), "-c", "copy", output_file])
