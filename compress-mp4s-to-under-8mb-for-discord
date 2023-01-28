@@ -1,0 +1,27 @@
+import subprocess
+import os
+# NOTE This script requires both ffmpeg.exe and Python (3.10 at least) installed on your system.
+
+input_file = "input.mp4"
+output_file = "output.mp4"
+
+# Get the original file size
+original_size = os.path.getsize(input_file)
+print(f"Original file size: {original_size / (1024 ** 2):.2f}MB")
+
+# Set the maximum file size
+max_size = 8 * 1024 ** 2
+
+# Compress the video using FFmpeg
+command = f"ffmpeg -i {input_file} -c:v libx264 -crf 23 -c:a aac -strict -2 -b:a 128k -maxrate 2500k -bufsize 2500k {output_file}"
+subprocess.call(command, shell=True)
+
+# Get the compressed file size
+compressed_size = os.path.getsize(output_file)
+print(f"Compressed file size: {compressed_size / (1024 ** 2):.2f}MB")
+
+# Check if the compressed file size is below the maximum size
+if compressed_size <= max_size:
+    print("File size is below 8MB, good to go!")
+else:
+    print("File size is above 8MB, get Discord Nitro")
